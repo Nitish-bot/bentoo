@@ -1,0 +1,56 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --color-bg-canvas: #f8f7f4;
+  --color-bg-surface: #ffffff;
+  --color-bg-surface-hover: #faf9f7;
+  --color-bg-surface-active: #f5f3ef;
+
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #6b6560;
+  --color-text-muted: #a39e99;
+  --color-text-inverse: #ffffff;
+
+  --color-accent: #8b7ec7;
+  --color-accent-hover: #7a6eb8;
+  --color-accent-subtle: rgba(139, 126, 199, 0.08);
+
+  --color-border: rgba(0, 0, 0, 0.06);
+  --color-border-hover: rgba(0, 0, 0, 0.1);
+
+  --font-body: var(--font-nunito-sans);
+  --font-display: var(--font-outfit);
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+:root {
+  --shadow-border:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.06),
+    0px 1px 2px -1px rgba(0, 0, 0, 0.06),
+    0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+  --shadow-border-hover:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.08),
+    0px 1px 2px -1px rgba(0, 0, 0, 0.08),
+    0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+  --shadow-elevated:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.04),
+    0px 4px 8px -2px rgba(0, 0, 0, 0.06),
+    0px 8px 16px -4px rgba(0, 0, 0, 0.04);
+  --shadow-glow:
+    0 0 0 3px rgba(139, 126, 199, 0.15);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--color-bg-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}

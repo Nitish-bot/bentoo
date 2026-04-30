@@ -1,0 +1,6 @@
+[
+  {
+    "key": "shift+alt+/",
+    "command": "eslint.executeAutofix"
+  }
+]
