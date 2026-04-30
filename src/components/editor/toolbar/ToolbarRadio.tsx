@@ -26,27 +26,46 @@ export const ToolbarRadio: React.FC<ToolbarRadioProps> = ({
   return (
     <div className="flex items-center gap-2">
       {label && (
-        <span className="min-w-0 flex-shrink-0 text-xs font-medium text-neutral-700">
+        <span
+          className="min-w-0 flex-shrink-0 text-xs font-medium"
+          style={{ color: 'var(--color-text-secondary)' }}
+        >
           {label}
         </span>
       )}
       <RadioGroup
         value={value}
         onChange={onChange}
-        className="flex flex-1 gap-0.5 rounded border border-neutral-300 p-0.5"
+        className="flex flex-1 gap-0.5 rounded-lg p-0.5"
+        style={{
+          backgroundColor: 'var(--color-bg-surface-active)',
+          boxShadow: 'var(--shadow-border)'
+        }}
       >
         {options.map((option) => (
           <Radio
             key={option.value}
             value={option.value}
             className={cn(
-              'flex flex-1 cursor-pointer items-center justify-center rounded px-2 py-1 text-xs text-neutral-700 transition-colors',
-              'data-[checked]:bg-blue-500 data-[checked]:text-white',
-              'hover:bg-neutral-100'
+              'relative flex flex-1 cursor-pointer items-center justify-center rounded-md px-2 py-1 text-xs transition-all duration-150',
+              'text-[var(--color-text-secondary)] data-[checked]:text-white'
             )}
             title={option.label}
           >
-            {option.icon ?? option.label}
+            {({ checked }) => (
+              <>
+                <span
+                  className={cn(
+                    'absolute inset-0 rounded-md transition-colors duration-150',
+                    checked ? 'opacity-100' : 'opacity-0'
+                  )}
+                  style={{ backgroundColor: 'var(--color-accent)' }}
+                />
+                <span className={cn('relative z-10', checked && 'font-medium')}>
+                  {option.icon ?? option.label}
+                </span>
+              </>
+            )}
           </Radio>
         ))}
       </RadioGroup>

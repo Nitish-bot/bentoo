@@ -23,12 +23,13 @@ export const ToolbarSection: React.FC<ToolbarSectionProps> = ({
   return (
     <Disclosure defaultOpen={defaultOpen}>
       {({ open }) => (
-        <div className="border-b border-neutral-200">
+        <div style={{ borderBottom: '1px solid var(--color-border)' }}>
           <DisclosureButton
             className={cn(
               'flex w-full items-center justify-between px-4 py-2.5 text-left text-xs font-semibold tracking-wide uppercase',
-              'text-neutral-600 hover:text-neutral-800'
+              'transition-colors duration-150'
             )}
+            style={{ color: 'var(--color-text-muted)' }}
           >
             {title}
             <ChevronRightIcon
@@ -36,6 +37,7 @@ export const ToolbarSection: React.FC<ToolbarSectionProps> = ({
                 'h-4 w-4 transition-transform duration-200',
                 open && 'rotate-90'
               )}
+              style={{ color: 'var(--color-text-muted)' }}
             />
           </DisclosureButton>
           <DisclosurePanel className="px-4 pb-3">

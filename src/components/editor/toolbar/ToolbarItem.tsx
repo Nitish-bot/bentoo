@@ -5,6 +5,7 @@ import { useNode } from '@craftjs/core';
 import { ToolbarTextInput } from './ToolbarTextInput';
 import { ToolbarDropdown } from './ToolbarDropdown';
 import { ToolbarRadio } from './ToolbarRadio';
+import { cn } from '@/lib/utils';
 
 type ToolbarItemType =
   | 'text'
@@ -134,7 +135,10 @@ export const ToolbarItem: React.FC<ToolbarItemProps> = (props) => {
   case 'switch':
     return (
       <div className="flex items-center gap-2">
-        <span className="min-w-0 flex-shrink-0 text-xs font-medium text-neutral-700">
+        <span
+          className="min-w-0 flex-shrink-0 text-xs font-medium"
+          style={{ color: 'var(--color-text-secondary)' }}
+        >
           {label}
         </span>
         <button
@@ -142,14 +146,19 @@ export const ToolbarItem: React.FC<ToolbarItemProps> = (props) => {
           role="switch"
           aria-checked={Boolean(value)}
           onClick={() => handleChange(value ? '' : 'true')}
-          className={`relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${
-            value ? 'bg-blue-500' : 'bg-neutral-300'
-          }`}
+          className={cn(
+            'relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors'
+          )}
+          style={{
+            backgroundColor: value ? 'var(--color-accent)' : 'var(--color-border-hover)'
+          }}
         >
           <span
-            className={`pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow transition-transform ${
+            className={cn(
+              'pointer-events-none inline-block h-4 w-4 rounded-full bg-white transition-transform',
               value ? 'translate-x-4' : 'translate-x-0'
-            }`}
+            )}
+            style={{ boxShadow: 'var(--shadow-border)' }}
           />
         </button>
       </div>

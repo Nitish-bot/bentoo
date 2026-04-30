@@ -93,6 +93,56 @@ These patterns used in the codebase are:
 - **Root canvas:** The default tree uses a `Container` with `canvas` as the root node inside `<Frame>`.
 - **React 19 upstream warning:** `"Accessing element.ref was removed in React 19"` is a known Craft.js issue (#744). It appears once on first load and does not affect functionality. Do **not** suppress it — it hides real errors.
 
+### Design System — Headless UI + Custom Tokens
+
+**Decision:** We use `@headlessui/react` as our accessible primitive layer and style it with Tailwind + custom CSS tokens. We do **not** use shadcn/ui.
+
+**Token source of truth:** `src/app/globals.css` defines all theme values as CSS custom properties in `@theme inline`:
+
+| Token | Purpose |
+|-------|---------|
+| `--color-bg-canvas` | Page background (#f8f7f4) |
+| `--color-bg-surface` | Cards, inputs, panels (#ffffff) |
+| `--color-bg-surface-hover` | Hover state for surfaces |
+| `--color-bg-surface-active` | Active/pressed state for surfaces |
+| `--color-text-primary` | Headings, primary text (#1a1a1a) |
+| `--color-text-secondary` | Labels, secondary text (#6b6560) |
+| `--color-text-muted` | Placeholders, disabled text (#a39e99) |
+| `--color-accent` | Primary accent — purple (#8b7ec7) |
+| `--color-accent-hover` | Accent hover state |
+| `--color-accent-subtle` | Focus rings, subtle highlights |
+| `--color-border` | Dividers, borders (rgba black 0.06) |
+| `--shadow-border` | 3-layer shadow that mimics a 1px border |
+| `--shadow-border-hover` | Slightly stronger border shadow |
+| `--shadow-elevated` | Dropdowns, modals, popovers |
+| `--shadow-glow` | Focus ring glow |
+
+**Styling conventions for Headless UI components:**
+- State styles use Headless UI's `data-[selected]`, `data-[checked]`, `data-[open]`, `data-[hover]` attributes.
+- Focus rings: `focus:outline-none focus:ring-2` with `--tw-ring-color: var(--color-accent-subtle)`.
+- Hover backgrounds on list options: `hover:bg-[var(--color-accent-subtle)]` or `data-[hover]:bg-[var(--color-accent-subtle)]`.
+- All interactive surfaces use `transition-[box-shadow] duration-150` or `transition-colors duration-150`.
+- Buttons and toolbox items use `active:scale-[0.96]` for tactile press feedback.
+- Panels use `backdrop-filter: blur(12px)` with `rgba(255,255,255,0.7)` — always pair these together.
+
+**Toolbar control patterns:**
+- Labels are `text-xs font-medium` with color `var(--color-text-secondary)`.
+- Inputs and buttons are `rounded-lg bg-surface shadow-border`.
+- Radio groups use `bg-surface-active` as the track and `accent` as the checked pill.
+- Dropdowns use `shadow-elevated` for the options panel.
+
+**Headless UI primitives currently in use:**
+- `TabGroup` / `TabList` / `Tab` / `TabPanels` / `TabPanel` — sidebar tabs
+- `Disclosure` / `DisclosureButton` / `DisclosurePanel` — collapsible sections (ToolbarSection, SidebarItem)
+- `Listbox` / `ListboxButton` / `ListboxOptions` / `ListboxOption` — dropdown selects
+- `RadioGroup` / `Radio` — segmented controls
+
+**Headless UI primitives to adopt for future features:**
+- `Switch` — toggle controls (replace the hand-rolled switch in ToolbarItem)
+- `Dialog` — template picker, auth modal, confirmations
+- `Popover` / `Menu` — header dropdowns, context menus
+- `Combobox` — searchable selects if needed
+
 ### Code Style
 
 - Indent: 2 spaces.
@@ -125,7 +175,7 @@ Core concept:
 ## Next Steps
 
 1. **Landing page** at `/` — showcase the builder, link to `/editor`.
-2. **shadcn/ui** — install and use for all new UI surfaces (forms, dialogs, sheets, dropdowns).
+2. **Headless UI design system** — extend existing Headless UI primitives (Dialog, Popover, Menu, Switch) for upcoming features. Document and enforce the token system.
 3. **Prebuilt templates** — a small set of starter layouts users can pick when entering the editor.
 4. **Simple navigation** — between landing page, editor, templates, and placeholder settings.
 5. **Settings placeholders** — site-level settings sheet (name, meta, favicon) wired to UI but not yet persisted.

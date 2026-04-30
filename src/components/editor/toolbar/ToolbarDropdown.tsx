@@ -33,7 +33,10 @@ export const ToolbarDropdown: React.FC<ToolbarDropdownProps> = ({
   return (
     <div className="flex items-center gap-2">
       {label && (
-        <span className="min-w-0 flex-shrink-0 text-xs font-medium text-neutral-700">
+        <span
+          className="min-w-0 flex-shrink-0 text-xs font-medium"
+          style={{ color: 'var(--color-text-secondary)' }}
+        >
           {label}
         </span>
       )}
@@ -41,21 +44,34 @@ export const ToolbarDropdown: React.FC<ToolbarDropdownProps> = ({
         <div className="relative flex-1">
           <ListboxButton
             className={cn(
-              'relative w-full cursor-pointer rounded border border-neutral-300 py-1 pr-7 pl-2 text-left text-xs text-neutral-800',
-              'bg-white'
+              'relative w-full cursor-pointer rounded-lg py-1 pr-7 pl-2 text-left text-xs',
+              'transition-[box-shadow] duration-150'
             )}
+            style={{
+              color: 'var(--color-text-primary)',
+              backgroundColor: 'var(--color-bg-surface)',
+              boxShadow: 'var(--shadow-border)'
+            }}
           >
             <span className="block truncate">{selected?.label ?? value}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1">
-              <ChevronUpDownIcon className="h-3.5 w-3.5 text-neutral-400" />
+              <ChevronUpDownIcon
+                className="h-3.5 w-3.5"
+                style={{ color: 'var(--color-text-muted)' }}
+              />
             </span>
           </ListboxButton>
           <ListboxOptions
             anchor="bottom start"
             className={cn(
-              'z-50 max-h-40 w-[var(--button-width)] overflow-auto rounded border border-neutral-200 py-1 text-xs text-neutral-800 shadow-lg',
-              'bg-white'
+              'z-50 max-h-40 w-[var(--button-width)] overflow-auto rounded-lg py-1 text-xs',
+              'transition-[box-shadow] duration-150'
             )}
+            style={{
+              color: 'var(--color-text-primary)',
+              backgroundColor: 'var(--color-bg-surface)',
+              boxShadow: 'var(--shadow-elevated)'
+            }}
           >
             {options.map((option) => (
               <ListboxOption
@@ -63,22 +79,28 @@ export const ToolbarDropdown: React.FC<ToolbarDropdownProps> = ({
                 value={option.value}
                 className={cn(
                   'relative cursor-pointer py-1 pr-2 pl-7 select-none',
-                  'data-[focus]:bg-blue-50'
+                  'transition-colors duration-150'
                 )}
+                style={{
+                  '--hover-bg': 'var(--color-accent-subtle)'
+                } as React.CSSProperties}
               >
                 {({ selected: isSelected }) => (
                   <>
                     <span
-                      className={cn(
-                        'block truncate',
-                        isSelected && 'font-medium'
-                      )}
+                      className={cn('block truncate', isSelected && 'font-medium')}
+                      style={{
+                        color: isSelected ? 'var(--color-accent)' : 'var(--color-text-primary)'
+                      }}
                     >
                       {option.label}
                     </span>
                     {isSelected && (
                       <span className="absolute inset-y-0 left-0 flex items-center pl-1.5">
-                        <CheckIcon className="h-3.5 w-3.5 text-blue-500" />
+                        <CheckIcon
+                          className="h-3.5 w-3.5"
+                          style={{ color: 'var(--color-accent)' }}
+                        />
                       </span>
                     )}
                   </>

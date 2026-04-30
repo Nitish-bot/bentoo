@@ -103,21 +103,27 @@ const LayerNode: React.FC<LayerNodeProps> = ({ nodeId, depth }) => {
     <div>
       <div
         className={cn(
-          'group flex items-center gap-1 border-l-2 py-1 pr-2 text-xs text-neutral-800',
-          selected
-            ? 'border-blue-500 bg-blue-50 text-blue-700'
-            : 'border-transparent hover:bg-neutral-50',
-          hovered && !selected && 'bg-neutral-100',
-          hidden && 'opacity-50'
+          'group flex items-center gap-1 border-l-2 py-1 pr-2 text-xs',
+          'transition-colors duration-150'
         )}
-        style={{ paddingLeft: depth * 16 + 4 }}
+        style={{
+          paddingLeft: depth * 16 + 4,
+          borderLeftColor: selected ? 'var(--color-accent)' : 'transparent',
+          backgroundColor: selected
+            ? 'var(--color-accent-subtle)'
+            : hovered && !selected
+              ? 'var(--color-bg-surface-hover)'
+              : 'transparent',
+          color: selected ? 'var(--color-accent)' : 'var(--color-text-primary)'
+        }}
         onClick={handleSelect}
         onDoubleClick={handleDoubleClick}
       >
         {hasChildren ? (
           <button
             type="button"
-            className="flex-shrink-0 rounded p-0.5 hover:bg-neutral-200"
+            className="flex-shrink-0 rounded p-0.5 transition-colors duration-150"
+            style={{ color: 'var(--color-text-muted)' }}
             onClick={(e) => {
               e.stopPropagation();
               setExpanded((prev) => !prev);
@@ -125,7 +131,7 @@ const LayerNode: React.FC<LayerNodeProps> = ({ nodeId, depth }) => {
           >
             <ChevronRightIcon
               className={cn(
-                'h-3 w-3 transition-transform',
+                'h-3 w-3 transition-transform duration-200',
                 expanded && 'rotate-90'
               )}
             />
@@ -138,7 +144,13 @@ const LayerNode: React.FC<LayerNodeProps> = ({ nodeId, depth }) => {
           <input
             autoFocus
             defaultValue={displayName}
-            className="flex-1 rounded border border-blue-400 bg-white px-1 py-0.5 text-xs"
+            className="flex-1 rounded-lg px-1 py-0.5 text-xs focus:outline-none focus:ring-2"
+            style={{
+              color: 'var(--color-text-primary)',
+              backgroundColor: 'var(--color-bg-surface)',
+              boxShadow: 'var(--shadow-border)',
+              '--tw-ring-color': 'var(--color-accent-subtle)'
+            } as React.CSSProperties}
             onKeyDown={handleRename}
             onBlur={handleBlur}
             onClick={(e) => e.stopPropagation()}
@@ -149,7 +161,8 @@ const LayerNode: React.FC<LayerNodeProps> = ({ nodeId, depth }) => {
 
         <button
           type="button"
-          className="flex-shrink-0 rounded p-0.5 opacity-0 group-hover:opacity-100 hover:bg-neutral-200"
+          className="flex-shrink-0 rounded p-0.5 opacity-0 transition-all duration-150 group-hover:opacity-100"
+          style={{ color: 'var(--color-text-muted)' }}
           onClick={(e) => {
             e.stopPropagation();
             toggleHidden();

@@ -134,7 +134,7 @@ src/
 
 ## Next Steps
 
-- shadcn/ui integration
+- **Headless UI design system** — extend primitives (Dialog, Popover, Menu, Switch) and enforce token conventions
 - Prebuilt templates (Portfolio, Landing Page, Resume)
 - Multi-page navigation and settings
 - InstantDB for auth and persistence

@@ -22,7 +22,7 @@ Core concept:
 | Styling | Tailwind CSS 4.x | Utility-first, responsive by default |
 | Editor Engine | @craftjs/core | Declarative node tree, built-in drag-and-drop, serialization |
 | Icons | @heroicons/react | Consistent icon set |
-| UI Components | Headless UI (migrating to shadcn/ui) | Accessible primitives, consistent with Tailwind |
+| UI Components | Headless UI | Accessible primitives, styled with Tailwind + custom tokens |
 | Backend (planned) | InstantDB (@instantdb/react) | Client-first, real-time, auth built-in, no backend boilerplate |
 
 ---
@@ -116,21 +116,21 @@ To add a new User Component:
 
 ---
 
-### Phase 2 — shadcn/ui Integration (Current)
+### Phase 2 — Headless UI Design System (Current)
 
-**Goal:** Replace Headless UI with shadcn/ui for a consistent design system.
+**Goal:** Solidify Headless UI as our accessible primitive layer and extend it with missing components.
 
 **Tasks:**
-- Initialize shadcn/ui: npx shadcn@latest init
-- Install core components: button, input, select, dialog, sheet, dropdown-menu, tabs
-- Migrate Sidebar.tsx tabs to shadcn Tabs
-- Migrate toolbar controls to shadcn primitives
-- Update Tailwind config for shadcn theming
+- Document design tokens and styling conventions (see AGENTS.md)
+- Fix existing Headless UI implementations (hover states, focus rings, positioning)
+- Replace hand-rolled switch in ToolbarItem with Headless UI `Switch`
+- Add new Headless UI primitives as needed: `Dialog` (template picker), `Popover` / `Menu` (header dropdowns), `Combobox` (searchable selects)
+- Ensure all state styling uses `data-[selected]`, `data-[checked]`, `data-[open]`, `data-[hover]` consistently
 
 **Success Metrics:**
-- All UI components use shadcn primitives
+- All UI components use Headless UI primitives (no hand-rolled accessible widgets)
 - Visual consistency across panels
-- No Headless UI imports in new code
+- Token system is documented and enforced
 
 ---
 
@@ -140,7 +140,7 @@ To add a new User Component:
 
 **Tasks:**
 - Create 3 starter templates: Portfolio, Landing Page, Resume
-- Build template picker modal (shadcn Dialog)
+- Build template picker modal (Headless UI Dialog)
 - Store templates as JSON trees (Craft.js serialized format)
 - On first editor load, show template picker
 - Add New Page from Template in editor

@@ -51,7 +51,10 @@ const SpacingInput: React.FC<SpacingInputProps> = ({ side, propKey, max }) => {
 
   return (
     <div className="flex items-center gap-1">
-      <span className="w-3 text-[10px] font-medium text-neutral-500">
+      <span
+        className="w-3 text-[10px] font-medium"
+        style={{ color: 'var(--color-text-muted)' }}
+      >
         {SIDE_LABELS[side]}
       </span>
       <input
@@ -65,9 +68,15 @@ const SpacingInput: React.FC<SpacingInputProps> = ({ side, propKey, max }) => {
         }}
         onBlur={() => commit(internal)}
         className={cn(
-          'w-12 rounded border border-neutral-300 px-1.5 py-0.5 text-center text-xs text-neutral-800',
-          'bg-white focus:border-blue-400 focus:outline-none'
+          'w-12 rounded-lg px-1.5 py-0.5 text-center text-xs transition-[box-shadow] duration-150',
+          'focus:outline-none focus:ring-2'
         )}
+        style={{
+          color: 'var(--color-text-primary)',
+          backgroundColor: 'var(--color-bg-surface)',
+          boxShadow: 'var(--shadow-border)',
+          '--tw-ring-color': 'var(--color-accent-subtle)'
+        } as React.CSSProperties}
       />
     </div>
   );
@@ -80,12 +89,20 @@ export const ToolbarSpacingGroup: React.FC<ToolbarSpacingGroupProps> = ({
 }) => {
   return (
     <div className="space-y-1.5">
-      <span className="text-xs font-medium text-neutral-700">{label}</span>
+      <span
+        className="text-xs font-medium"
+        style={{ color: 'var(--color-text-secondary)' }}
+      >
+        {label}
+      </span>
       <div className="flex flex-col items-center gap-0.5">
         <SpacingInput side="Top" propKey={`${prefix}Top`} max={max} />
         <div className="flex items-center gap-3">
           <SpacingInput side="Left" propKey={`${prefix}Left`} max={max} />
-          <div className="h-5 w-5 rounded border border-dashed border-neutral-300" />
+          <div
+            className="h-5 w-5 rounded-md border border-dashed"
+            style={{ borderColor: 'var(--color-border)' }}
+          />
           <SpacingInput side="Right" propKey={`${prefix}Right`} max={max} />
         </div>
         <SpacingInput side="Bottom" propKey={`${prefix}Bottom`} max={max} />

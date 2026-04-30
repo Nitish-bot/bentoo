@@ -40,11 +40,26 @@ export const ToolbarTextInput: React.FC<ToolbarTextInputProps> = ({
     [onChange]
   );
 
+  const inputBaseClass = cn(
+    'rounded-lg px-2 py-1 text-xs transition-[box-shadow] duration-150',
+    'focus:outline-none focus:ring-2'
+  );
+
+  const inputStyle = {
+    color: 'var(--color-text-primary)',
+    backgroundColor: 'var(--color-bg-surface)',
+    boxShadow: 'var(--shadow-border)',
+    '--tw-ring-color': 'var(--color-accent-subtle)'
+  } as React.CSSProperties;
+
   if (type === 'color') {
     return (
       <div className="flex items-center gap-2">
         {label && (
-          <span className="min-w-0 flex-shrink-0 text-xs font-medium text-neutral-700">
+          <span
+            className="min-w-0 flex-shrink-0 text-xs font-medium"
+            style={{ color: 'var(--color-text-secondary)' }}
+          >
             {label}
           </span>
         )}
@@ -53,16 +68,15 @@ export const ToolbarTextInput: React.FC<ToolbarTextInputProps> = ({
             type="color"
             value={internalValue}
             onChange={(e) => handleChange(e.target.value)}
-            className="h-6 w-6 cursor-pointer rounded border border-neutral-300"
+            className="h-6 w-6 cursor-pointer rounded border-0 p-0"
+            style={{ boxShadow: 'var(--shadow-border)' }}
           />
           <input
             type="text"
             value={internalValue}
             onChange={(e) => handleChange(e.target.value)}
-            className={cn(
-              'w-full rounded border border-neutral-300 px-2 py-1 text-xs text-neutral-800',
-              'bg-white'
-            )}
+            className={cn(inputBaseClass, 'w-full')}
+            style={inputStyle}
           />
         </div>
       </div>
@@ -72,7 +86,10 @@ export const ToolbarTextInput: React.FC<ToolbarTextInputProps> = ({
   return (
     <div className="flex items-center gap-2">
       {label && (
-        <span className="min-w-0 flex-shrink-0 text-xs font-medium text-neutral-700">
+        <span
+          className="min-w-0 flex-shrink-0 text-xs font-medium"
+          style={{ color: 'var(--color-text-secondary)' }}
+        >
           {label}
         </span>
       )}
@@ -85,7 +102,7 @@ export const ToolbarTextInput: React.FC<ToolbarTextInputProps> = ({
             step={step}
             value={internalValue}
             onChange={(e) => handleChange(e.target.value)}
-            className="flex-1"
+            className="flex-1 accent-[var(--color-accent)]"
           />
         )}
         <input
@@ -97,10 +114,10 @@ export const ToolbarTextInput: React.FC<ToolbarTextInputProps> = ({
           max={max}
           step={step}
           className={cn(
-            'rounded border border-neutral-300 px-2 py-1 text-xs text-neutral-800',
-            'bg-white',
+            inputBaseClass,
             showSlider ? 'w-14 text-center' : 'w-full'
           )}
+          style={inputStyle}
         />
       </div>
     </div>
